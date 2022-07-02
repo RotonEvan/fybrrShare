@@ -6,24 +6,62 @@ const socket = io.connect();
 
 socket.emit('joinRoom', { username, room });
 
+const client = new WebTorrent();
+
 send.addEventListener('click', (e) => {
     e.preventDefault();
 
     // Get message text
 
-    let msg = document.querySelector('#message').value;
+    const files = document.getElementById("file").files;
 
-    if (!msg) {
-        return false;
-    }
+    client.seed(files, function(torrent) {
+        console.log('Client is seeding ' + torrent.magnetURI)
+        socket.emit('sendMessage', torrent.magnetURI);
+    })
+
+
+    // if (!msg) {
+    //     return false;
+    // }
 
     // Emit message to server
-    socket.emit('sendMessage', msg);
-    document.querySelector('#message').value = "";
+    // socket.emit('sendMessage', msg);
+    // document.querySelector('#message').value = "";
 })
 
-socket.on('sendToClient', (message) => {
-    console.log("message received " + message)
+socket.on('sendToClient', (torrentID) => {
+    console.log("Torrent received " + torrentID)
+
+    client.add(torrentID, (torrent) => {
+        console.log(torrent);
+    })
+
+    client.on('torrent', (torrent) => {
+        // const file1 = torrent.files.find(function(file) {
+        //     return file.name.endsWith('.jpg')
+        // })
+        let check = setInterval(() => {
+            document.querySelector('#progress').value = torrent.progress * 100;
+            if (torrent.progress == 1) {
+                torrent.files.forEach(file => {
+                    file.getBlobURL(function(err, url) {
+                        if (err) throw err
+                        const a = document.createElement('a')
+                        a.download = file.name
+                        a.href = url
+                        a.textContent = 'Download ' + file.name
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                    })
+                });
+                clearInterval(check);
+            }
+
+        }, 1000);
+        // file1.appendTo('body')
+    })
 })
 
 function outputMessage(message) {
@@ -40,4 +78,3 @@ function outputMessage(message) {
     div.appendChild(para);
     document.querySelector('.chat-messages').appendChild(div);
 }
-

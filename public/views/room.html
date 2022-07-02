@@ -9,10 +9,15 @@
 </head>
 
 <body>
-    <label for="message">Enter:</label>
-    <input type="text" id="message" />
+    <label for="file">Add file:</label>
+    <input type="file" id="file" multiple/>
 
     <button class="send">Send</button>
+
+    <label for="progress">Downloading progress:</label>
+    <progress id="progress" value="0" max="100"> 0% </progress>
+
+    <script src="../js/webtorrent.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="../js/client.js"></script>
 </body>
