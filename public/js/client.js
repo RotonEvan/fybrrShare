@@ -38,6 +38,7 @@ socket.on('sendToClient', (torrentID) => {
     })
 
     client.on('torrent', (torrent) => {
+        console.log(torrent);
         // const file1 = torrent.files.find(function(file) {
         //     return file.name.endsWith('.jpg')
         // })
