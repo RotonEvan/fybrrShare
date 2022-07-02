@@ -35,13 +35,6 @@ socket.on('sendToClient', (torrentID) => {
 
     client.add(torrentID, (torrent) => {
         console.log(torrent);
-    })
-
-    client.on('torrent', (torrent) => {
-        console.log(torrent);
-        // const file1 = torrent.files.find(function(file) {
-        //     return file.name.endsWith('.jpg')
-        // })
         let check = setInterval(() => {
             document.querySelector('#progress').value = torrent.progress * 100;
             if (torrent.progress == 1) {
@@ -61,8 +54,34 @@ socket.on('sendToClient', (torrentID) => {
             }
 
         }, 1000);
-        // file1.appendTo('body')
     })
+
+    // client.on('torrent', (torrent) => {
+    //     console.log(torrent);
+    //     // const file1 = torrent.files.find(function(file) {
+    //     //     return file.name.endsWith('.jpg')
+    //     // })
+    //     let check = setInterval(() => {
+    //         document.querySelector('#progress').value = torrent.progress * 100;
+    //         if (torrent.progress == 1) {
+    //             torrent.files.forEach(file => {
+    //                 file.getBlobURL(function(err, url) {
+    //                     if (err) throw err
+    //                     const a = document.createElement('a')
+    //                     a.download = file.name
+    //                     a.href = url
+    //                     a.textContent = 'Download ' + file.name
+    //                     document.body.appendChild(a);
+    //                     a.click();
+    //                     a.remove();
+    //                 })
+    //             });
+    //             clearInterval(check);
+    //         }
+
+    //     }, 1000);
+    //     // file1.appendTo('body')
+    // })
 })
 
 function outputMessage(message) {
