@@ -51,6 +51,7 @@ socket.on('sendToClient', (torrentID) => {
                     })
                 });
                 clearInterval(check);
+                document.querySelector('#progress').value = 0;
             }
 
         }, 1000);
