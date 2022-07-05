@@ -40,6 +40,10 @@ app.get('/room', (req, res) => {
     res.sendFile(__dirname + '/public/views/room.html');
 })
 
+app.get('/room2', (req, res) => {
+    res.sendFile(__dirname + '/public/views/room2.html');
+})
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/views/index.html');
 })
