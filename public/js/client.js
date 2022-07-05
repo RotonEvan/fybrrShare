@@ -8,6 +8,10 @@ socket.emit('joinRoom', { username, room });
 
 const client = new WebTorrent();
 
+const trackers = {
+    announce: ['wss://tracker.btorrent.xyz', 'wss://tracker.openwebtorrent.com'],
+};
+
 send.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -15,7 +19,7 @@ send.addEventListener('click', (e) => {
 
     const files = document.getElementById("file").files;
 
-    client.seed(files, function(torrent) {
+    client.seed(files, trackers, function(torrent) {
         console.log('Client is seeding ' + torrent.magnetURI)
         socket.emit('sendMessage', torrent.magnetURI);
     })
@@ -33,7 +37,7 @@ send.addEventListener('click', (e) => {
 socket.on('sendToClient', (torrentID) => {
     console.log("Torrent received " + torrentID)
 
-    client.add(torrentID, (torrent) => {
+    client.add(torrentID, trackers, (torrent) => {
         console.log(torrent);
         let check = setInterval(() => {
             document.querySelector('#progress').value = torrent.progress * 100;
