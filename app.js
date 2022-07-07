@@ -36,20 +36,20 @@ io.sockets.on('connection', socket => {
 })
 
 
-app.get('/room2', (req, res) => {
+app.get('/room', (req, res) => {
     // res.sendFile(__dirname + '/public/views/room.html');
     let roomID = Math.floor(1000 + Math.random() * 9000);
     console.log(roomID);
-    res.redirect('/room2/' + roomID)
+    res.redirect('/room/' + roomID)
 })
 
-app.get('/room2/:roomID', (req, res) => {
+app.get('/room/:roomID', (req, res) => {
     let roomid = req.params.roomID;
     console.log("New peer in " + roomid);
     res.sendFile(__dirname + '/public/views/room2.html')
 })
 
-app.get('/room', (req, res) => {
+app.get('/room2', (req, res) => {
     res.sendFile(__dirname + '/public/views/room.html');
 })
 
