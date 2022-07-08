@@ -6,6 +6,11 @@ function copyToClipboard(element) {
     // $temp.remove();
 }
 
+function copy() {
+    let copyText = window.location.href;
+    navigator.clipboard.writeText(copyText);
+    alert("URL Copied");
+}
 
 
 // const add = document.querySelector(".add");
