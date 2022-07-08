@@ -58,9 +58,42 @@
     overflow-x: hidden;
 }
 
+
+/* .file-title-div {
+    display: flex;
+} */
+
 .file-title {
     margin: 0.7rem 0 0 1rem;
     font-size: 20px;
+}
+
+.add-file-btn svg {
+    margin-top: -3px;
+}
+
+.send-file-btn svg {
+    margin-top: -3px;
+}
+
+.add-file-btn input[type=file] {
+    position: absolute;
+    /* top: auto; */
+    /* right: 0; */
+    /* width: 100%;
+    height: 100%; */
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+}
+
+hr {
+    /* width: 75%; */
+    margin: 0.7rem 0 0 1rem;
 }
 
 .files-list {

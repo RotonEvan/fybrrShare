@@ -6,12 +6,7 @@ function copyToClipboard(element) {
     // $temp.remove();
 }
 
-window.onload = function () {
-    const roomID = location.pathname.substring(location.pathname.length - 4);
-    console.log(roomID);
-    window.roomID = roomID;
-    document.querySelector('.roomID').innerText += roomID;
-}
+
 
 // const add = document.querySelector(".add");
 // add.addEventListener("click", () => {
