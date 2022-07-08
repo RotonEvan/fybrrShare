@@ -11,30 +11,46 @@ const PORT = process.env.PORT || 3000;
 
 const { newUser, getActiveUser, getIndividualRoomUsers } = require('./helper/helperfun')
 
+
+let roomPeers = {};
 io.sockets.on('connection', socket => {
     socket.on('joinRoom', ({ username, room }) => {
         const user = newUser(socket.id, username, room);
         socket.join(user.room)
+        const roomSize = io.sockets.adapter.rooms.get(room).size
+        io.to(user.room).emit("updateRoom", username, roomSize, socket.id);
 
-        socket.emit('message', () => {
-            console.log(`${socket.id} joined ${room} room`)
-        })
+        if (!roomPeers[room]) {
+            roomPeers[room] = {};
+        }
+        roomPeers[room][username] = socket.id;
+        socket.emit("socketID", socket.id, roomPeers[room]);
 
-        socket.broadcast.to(user.room).emit('message', "User joind room")
 
-        io.to(user.room).emit('roomUsers', {
-            room: user.room,
-            users: getIndividualRoomUsers(user.room)
-        })
+
+        // socket.emit('message', () => {
+        //     console.log(`${socket.id} joined ${room} room`)
+        // })
+
+        // socket.broadcast.to(user.room).emit('message', "User joind room");
+
+        // io.to(user.room).emit('roomUsers', {
+        //     room: user.room,
+        //     users: getIndividualRoomUsers(user.room)
+        // })
+
     })
 
-    socket.on('sendProgress', (progress, filename) => {
-        socket.broadcast.emit('sendProgress', progress, filename);
+
+
+    socket.on('sendProgress', (progress, filename, senderid) => {
+        // socket.broadcast.emit('sendProgress', progress, filename);
+        io.to(senderid).emit('sendProgress', progress, filename);
     })
 
-    socket.on('sendMessage', (msg, peer) => {
+    socket.on('sendMessage', (msg, peer, senderid) => {
         // const user = getActiveUser(socket.id)
-        socket.broadcast.emit('sendToClient', msg, peer);
+        socket.broadcast.emit('sendToClient', msg, peer, senderid);
         // io.to(user.room).emit('sendToClient', msg)
     })
 })

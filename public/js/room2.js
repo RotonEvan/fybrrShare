@@ -13,7 +13,7 @@ function copyToClipboard(element) {
 
 // })
 
-Highcharts.chart('peers', {
+let chart = new Highcharts.chart('peers', {
     chart: {
         type: 'networkgraph',
         // color: 'rgba(255, 255, 255, 0)'
@@ -52,21 +52,6 @@ Highcharts.chart('peers', {
         marker: {
             radius: 35
         },
-        data: [{
-            from: 'n1',
-            to: 'n2'
-        }, {
-            from: 'n2',
-            to: 'n3'
-        }, {
-            from: 'n3',
-            to: 'n4'
-        }, {
-            from: 'n4',
-            to: 'n5'
-        }, {
-            from: 'n5',
-            to: 'n1'
-        }]
+        data: []
     }]
 });
