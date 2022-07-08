@@ -28,9 +28,13 @@ io.sockets.on('connection', socket => {
         })
     })
 
-    socket.on('sendMessage', msg => {
-        const user = getActiveUser(socket.id)
-        socket.broadcast.emit('sendToClient', msg);
+    socket.on('sendProgress', (progress, filename) => {
+        socket.broadcast.emit('sendProgress', progress, filename);
+    })
+
+    socket.on('sendMessage', (msg, peer) => {
+        // const user = getActiveUser(socket.id)
+        socket.broadcast.emit('sendToClient', msg, peer);
         // io.to(user.room).emit('sendToClient', msg)
     })
 })
