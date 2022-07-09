@@ -56,14 +56,14 @@ io.sockets.on('connection', socket => {
 })
 
 
-app.get('/room', (req, res) => {
+app.get('/', (req, res) => {
     // res.sendFile(__dirname + '/public/views/room.html');
     let roomID = Math.floor(1000 + Math.random() * 9000);
     console.log(roomID);
-    res.redirect('/room/' + roomID)
+    res.redirect('/' + roomID)
 })
 
-app.get('/room/:roomID', (req, res) => {
+app.get('/:roomID', (req, res) => {
     let roomid = req.params.roomID;
     console.log("New peer in " + roomid);
     res.sendFile(__dirname + '/public/views/room2.html')
@@ -73,7 +73,7 @@ app.get('/room2', (req, res) => {
     res.sendFile(__dirname + '/public/views/room.html');
 })
 
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
     res.sendFile(__dirname + '/public/views/index.html');
 })
 
