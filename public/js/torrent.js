@@ -7,7 +7,7 @@ window.onload = function () {
     window.roomID = roomID;
     document.querySelector('.roomID').innerText += roomID;
     const username = prompt("Give Username:");
-    socket.emit('joinRoom', { username, roomID });
+    socket.emit('joinRoom', username, roomID);
     window.username = username;
     window.socket = socket;
     window.client = client;

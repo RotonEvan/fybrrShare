@@ -1,3 +1,4 @@
+const { Console } = require('console');
 const express = require('express');
 const app = express();
 const http = require('http')
@@ -14,9 +15,10 @@ const { newUser, getActiveUser, getIndividualRoomUsers } = require('./helper/hel
 
 let roomPeers = {};
 io.sockets.on('connection', socket => {
-    socket.on('joinRoom', ({ username, room }) => {
+    socket.on('joinRoom', (username, room) => {
         const user = newUser(socket.id, username, room);
         socket.join(user.room)
+        console.log(room);
         const roomSize = io.sockets.adapter.rooms.get(room).size
         io.to(user.room).emit("updateRoom", username, roomSize, socket.id);
 
@@ -55,15 +57,18 @@ io.sockets.on('connection', socket => {
     })
 })
 
-
 app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/views/home.html');
+})
+
+app.get('/room', (req, res) => {
     // res.sendFile(__dirname + '/public/views/room.html');
     let roomID = Math.floor(1000 + Math.random() * 9000);
     console.log(roomID);
-    res.redirect('/' + roomID)
+    res.redirect('/room/' + roomID)
 })
 
-app.get('/:roomID', (req, res) => {
+app.get('/room/:roomID', (req, res) => {
     let roomid = req.params.roomID;
     console.log("New peer in " + roomid);
     res.sendFile(__dirname + '/public/views/room2.html')
