@@ -82,8 +82,13 @@ app.get('/index', (req, res) => {
     res.sendFile(__dirname + '/public/views/index.html');
 })
 
+
+app.get('/404', (req, res) => {
+    res.sendFile(__dirname + '/public/views/404.html')
+})
+
 app.use(function (req, res, next) {
-    res.sendFile(__dirname + '/public/views/4O4.html');
+    res.redirect('/404')
 })
 
 server.listen(PORT, () => {
