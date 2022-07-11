@@ -82,6 +82,10 @@ app.get('/index', (req, res) => {
     res.sendFile(__dirname + '/public/views/index.html');
 })
 
+app.use(function (req, res, next) {
+    res.sendFile(__dirname + '/public/views/4O4.html');
+})
+
 server.listen(PORT, () => {
     console.log(`Express app listening on PORT ${PORT}`);
 })

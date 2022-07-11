@@ -1,0 +1,40 @@
+body {
+    background-color: #06283D;
+}
+
+.msg {
+    text-align: center;
+    color: whitesmoke;
+    margin-top: -3rem;
+    font-size: 1.7rem;
+}
+
+.img {
+    margin-left: 21rem;
+    margin-top: 2rem;
+    height: 380px;
+    border-radius: 25px;
+}
+
+.oops-txt {
+
+    text-align: center;
+    font-size: 5rem;
+    background: linear-gradient(to right, #FFF 20%, rgb(0, 229, 255) 40%, #009dff 60%, #FFF 80%);
+    background-size: 200% auto;
+
+    color: #000;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: shine 3s linear infinite;
+
+    @keyframes shine {
+        to {
+            background-position: 200% center;
+        }
+    }
+
+}
